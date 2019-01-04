@@ -18,24 +18,32 @@ public enum RxFutureError : Error {
 /// Item for subscribing primitive sequence
 ///
 public struct RxFuture<E> {
-
-  public typealias SharedSingle<E> = Single<E>
+  
+  public typealias RxPromise<E> = Single<E>
 
   /// Reactive style for receive notification for completion of this task.
   /// It's already shared and replaying.
   /// It will broadcast result, even if this task already completed.
-  public let result: SharedSingle<E>
-
+  public let result: RxPromise<E>
+  
   private let cancelTrigger = PublishSubject<Void>()
 
   public static func create(_ observer: @escaping (@escaping (SingleEvent<E>) -> ()) -> Disposable) -> RxFuture<E> {
 
     return .init { Single<E>.create(subscribe: observer) }
   }
+  
+  public static func succeed(_ value: E) -> RxFuture<E> {
+    return Single<E>.just(value).start()
+  }
+  
+  public static func fail(_ error: Swift.Error) -> RxFuture<E> {
+    return Single<E>.error(error).start()
+  }
 
-  init(_ make: () -> Single<E>) {
+  init(_ make: () -> RxPromise<E>) {
 
-    let task = make()
+    let promise = make()
       .asObservable()
       .takeUntil(cancelTrigger)
       .catchError { error in
@@ -48,9 +56,9 @@ public struct RxFuture<E> {
       .asSingle()
 
     // Single will be disposed when observed success or error.
-    _ = task.subscribe()
+    _ = promise.subscribe()
 
-    self.result = task
+    self.result = promise
   }
 
   /// Add notification closure for completion for this task.
