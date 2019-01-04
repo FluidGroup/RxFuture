@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
     s.name             = "RxFuture"
-    s.version          = "1.0.0"
+    s.version          = "1.0.3"
     s.summary          = "A library to provide Future/Promise pattern API that is backed by RxSwift."
   
     s.description      = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
     s.requires_arc = true
   
-    s.ios.deployment_target = '10.0'
+    s.ios.deployment_target = '8.0'
     s.osx.deployment_target = '10.10'
     s.tvos.deployment_target = '9.0'
     s.watchos.deployment_target = '3.0'
