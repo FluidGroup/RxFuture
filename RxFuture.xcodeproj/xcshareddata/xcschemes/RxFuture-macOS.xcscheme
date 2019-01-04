@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4BAE9FD021DFA167003DDF3D"
-               BuildableName = "RxFuture-macOS.framework"
+               BuildableName = "RxFuture.framework"
                BlueprintName = "RxFuture-macOS"
                ReferencedContainer = "container:RxFuture.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BAE9FD021DFA167003DDF3D"
-            BuildableName = "RxFuture-macOS.framework"
+            BuildableName = "RxFuture.framework"
             BlueprintName = "RxFuture-macOS"
             ReferencedContainer = "container:RxFuture.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4BAE9FD021DFA167003DDF3D"
-            BuildableName = "RxFuture-macOS.framework"
+            BuildableName = "RxFuture.framework"
             BlueprintName = "RxFuture-macOS"
             ReferencedContainer = "container:RxFuture.xcodeproj">
          </BuildableReference>
