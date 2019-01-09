@@ -92,6 +92,7 @@ extension PrimitiveSequence where Trait == SingleTrait {
   /// Subscribe and returns RunningTask
   ///
   /// - Returns:
+  @discardableResult
   public func start(observeScheduler: SchedulerType = MainScheduler.asyncInstance) -> RxFuture<Element> {
     return RxFuture { observeOn(observeScheduler) }
   }
