@@ -23,6 +23,6 @@ Pod::Spec.new do |s|
     s.source_files = 'RxFuture/*.swift'
   
     s.frameworks = 'Foundation'
-    s.dependency 'RxSwift', '~> 4.0'
+    s.dependency 'RxSwift', '~> 5'
   
   end
