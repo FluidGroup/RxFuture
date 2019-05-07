@@ -12,7 +12,6 @@
 		4B167B0421D003AE00D37086 /* RxFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B167B0321D003AE00D37086 /* RxFuture.swift */; };
 		4BAE9FD221DFA167003DDF3D /* RxFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B167AF521CFFF1E00D37086 /* RxFuture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BAE9FD421DFA167003DDF3D /* RxFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B167B0321D003AE00D37086 /* RxFuture.swift */; };
-		4BAE9FE521DFA2AD003DDF3D /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BAE9FE121DFA1F8003DDF3D /* RxAtomic.framework */; };
 		4BAE9FE621DFA2AD003DDF3D /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BAE9FE021DFA1F8003DDF3D /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,7 +23,6 @@
 		4B167B0321D003AE00D37086 /* RxFuture.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RxFuture.swift; sourceTree = "<group>"; };
 		4BAE9FDC21DFA167003DDF3D /* RxFuture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxFuture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BAE9FE021DFA1F8003DDF3D /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
-		4BAE9FE121DFA1F8003DDF3D /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/Mac/RxAtomic.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +39,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BAE9FE621DFA2AD003DDF3D /* RxSwift.framework in Frameworks */,
-				4BAE9FE521DFA2AD003DDF3D /* RxAtomic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +85,6 @@
 		4BAE9FDF21DFA1E3003DDF3D /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				4BAE9FE121DFA1F8003DDF3D /* RxAtomic.framework */,
 				4BAE9FE021DFA1F8003DDF3D /* RxSwift.framework */,
 			);
 			name = macOS;
