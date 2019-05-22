@@ -19,6 +19,8 @@ public enum RxFutureError : Error {
 ///
 public struct RxFuture<E> {
   
+  public typealias Result<E> = SingleEvent<E>
+  
   public typealias RxPromise<E> = Single<E>
 
   /// Reactive style for receive notification for completion of this task.
@@ -57,18 +59,10 @@ public struct RxFuture<E> {
 
     // Single will be disposed when observed success or error.
     _ = promise.subscribe()
-
+    
     self.result = promise
   }
-
-  /// Add notification closure for completion for this task.
-  ///
-  /// - Parameter execute:
-  /// The closure will be called, even if this task already completed.
-  public func addCompletion(_ execute: @escaping (SingleEvent<E>) -> Void) {
-    _ = result.subscribe(execute)
-  }
-
+ 
   /// Cancel task
   public func cancel() {
     cancelTrigger.onNext(())
@@ -76,14 +70,74 @@ public struct RxFuture<E> {
 }
 
 extension RxFuture {
+  
+  /// Add notification closure for completion for this task.
+  ///
+  /// - Parameter execute:
+  /// The closure will be called, even if this task already completed.
+  @available(*, deprecated, renamed: "on")
+  public func addCompletion(_ execute: @escaping (SingleEvent<E>) -> Void) {
+    _ = result.subscribe(execute)
+  }
+  
+  /// Add notification closure for completion for this task.
+  ///
+  /// - Parameter execute:
+  /// The closure will be called, even if this task already completed.
+  public func on(_ handleEvent: @escaping (SingleEvent<E>) -> Void) {
+    _ = result.subscribe(handleEvent)
+  }
+  
+  public func on(
+    success: @escaping (E) -> Void = { _ in},
+    failure: @escaping (Error) -> Void = { _ in },
+    completion: @escaping () -> Void = {}
+    ) -> RxFuture<E> {
+    
+    on { event in
+      switch event {
+      case .success(let e):
+        success(e)
+      case .error(let error):
+        failure(error)
+      }
+      completion()
+    }
+    
+    return self
+  }
+  
+}
 
-  public func then<U>(_ closure: @escaping (E) throws -> RxFuture<U>) -> RxFuture<U> {
+extension RxFuture {
+  
+  public func tweak<U>(_ tweak: (Single<E>) -> Single<U>) -> RxFuture<U> {
+    return tweak(result).start()
+  }
+}
+  
+// MARK: - Transforming
+extension RxFuture {
+  
+  public func map<U>(_ transform: @escaping (E) throws -> U) -> RxFuture<U> {
+    return
+      result
+        .map(transform)
+        .start()
+  }
+  
+  public func flatMap<U>(_ transform: @escaping (E) throws -> RxFuture<U>) -> RxFuture<U> {
     return
       result
         .flatMap { e in
-          try closure(e).result
+          try transform(e).result
         }
         .start()
+  }
+
+  @available(*, deprecated, renamed: "flatMap")
+  public func then<U>(_ transform: @escaping (E) throws -> RxFuture<U>) -> RxFuture<U> {
+    return flatMap(transform)
   }
 }
 
