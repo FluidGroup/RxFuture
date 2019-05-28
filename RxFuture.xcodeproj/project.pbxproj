@@ -104,7 +104,9 @@
 				4B727F67228296DF00AA7E2B /* RxFutureDemo */,
 				4B167AF321CFFF1E00D37086 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		4B167AF321CFFF1E00D37086 /* Products */ = {
 			isa = PBXGroup;

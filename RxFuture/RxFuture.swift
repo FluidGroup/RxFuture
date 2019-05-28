@@ -48,12 +48,14 @@ public struct RxFuture<E> {
     let promise = make()
       .asObservable()
       .takeUntil(cancelTrigger)
+      .asSingle()
       .catchError { error in
         guard case RxError.noElements = error else {
           throw error
         }
         throw RxFutureError.wasCancelled
       }
+      .asObservable()
       .share(replay: 1, scope: .forever)
       .asSingle()
 
