@@ -30,9 +30,9 @@ public struct RxFuture<E> {
   
   private let cancelTrigger = PublishSubject<Void>()
 
-  public static func create(_ observer: @escaping (@escaping (SingleEvent<E>) -> ()) -> Disposable) -> RxFuture<E> {
+  public static func create(_ promise: @escaping (@escaping (SingleEvent<E>) -> ()) -> Disposable) -> RxFuture<E> {
 
-    return .init { Single<E>.create(subscribe: observer) }
+    return .init { Single<E>.create(subscribe: promise) }
   }
   
   public static func succeed(_ value: E) -> RxFuture<E> {
@@ -86,10 +86,13 @@ extension RxFuture {
   ///
   /// - Parameter execute:
   /// The closure will be called, even if this task already completed.
-  public func on(_ handleEvent: @escaping (SingleEvent<E>) -> Void) {
+  @discardableResult
+  public func on(_ handleEvent: @escaping (SingleEvent<E>) -> Void) -> RxFuture<E> {
     _ = result.subscribe(handleEvent)
+    return self
   }
   
+  @discardableResult
   public func on(
     success: @escaping (E) -> Void = { _ in},
     failure: @escaping (Error) -> Void = { _ in },
