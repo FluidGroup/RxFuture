@@ -39,7 +39,7 @@ public final class RxFuture<E> {
     }
   }
 
-  public var _isCompleted: Bool = false
+  private var _isCompleted: Bool = false
   
   private let cancelTrigger = PublishSubject<Void>()
   
