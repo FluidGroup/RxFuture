@@ -17,7 +17,7 @@ public enum RxFutureError : Error {
 
 /// Item for subscribing primitive sequence
 ///
-public struct RxFuture<E> {
+public final class RxFuture<E> {
   
   public typealias Result<E> = SingleEvent<E>
   
@@ -28,7 +28,22 @@ public struct RxFuture<E> {
   /// It will broadcast result, even if this task already completed.
   public let result: RxPromise<E>
   
+  public var isCompleted: Bool {
+    get {
+      lock.lock(); defer { lock.unlock() }
+      return _isCompleted
+    }
+    set {
+      lock.lock(); defer { lock.unlock() }
+      _isCompleted = newValue
+    }
+  }
+
+  public var _isCompleted: Bool = false
+  
   private let cancelTrigger = PublishSubject<Void>()
+  
+  private let lock = NSLock()
 
   public static func create(_ promise: @escaping (@escaping (SingleEvent<E>) -> ()) -> Disposable) -> RxFuture<E> {
 
@@ -42,9 +57,9 @@ public struct RxFuture<E> {
   public static func fail(_ error: Swift.Error) -> RxFuture<E> {
     return Single<E>.error(error).start()
   }
-
+  
   init(_ make: () -> RxPromise<E>) {
-
+    
     let promise = make()
       .asObservable()
       .takeUntil(cancelTrigger)
@@ -54,15 +69,24 @@ public struct RxFuture<E> {
           throw error
         }
         throw RxFutureError.wasCancelled
-      }
-      .asObservable()
-      .share(replay: 1, scope: .forever)
-      .asSingle()
-
+    }
+    .asObservable()
+    .share(replay: 1, scope: .forever)
+    .asSingle()
+      
     // Single will be disposed when observed success or error.
     _ = promise.subscribe()
     
     self.result = promise
+    
+    _ = promise
+      .do(
+        onSuccess: { [weak self] _ in
+          self?.isCompleted = true
+        }, onError: { [weak self] error in
+          self?.isCompleted = true
+      })
+    
   }
  
   /// Cancel task

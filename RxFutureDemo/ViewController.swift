@@ -11,13 +11,26 @@ import UIKit
 import RxSwift
 import RxFuture
 
+extension String : Error {
+
+}
+
 class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view.
     
-//    sendMessage()
+    sendMessage()
+    
+    runWillError()
+      .on(success: { () in
+        print("success")
+      }, failure: { (error) in
+        print(error)
+      }, completion: {
+        print("complete")
+      })
     
     let future = run().on(success: { () in
       print("success")
@@ -58,6 +71,20 @@ class ViewController: UIViewController {
         }
         }
         .start()
+  }
+  
+  func runWillError() -> RxFuture<Void> {
+    
+    return Single<Void>.create { o in
+      
+      DispatchQueue.global().asyncAfter(deadline: .now() + 1, execute: {
+        o(.error("Error!"))
+      })
+      
+      return Disposables.create {
+      }
+      }
+      .start()
   }
   
   func run() -> RxFuture<Void> {
