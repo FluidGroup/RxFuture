@@ -20,10 +20,19 @@
 		4B727F7B228296ED00AA7E2B /* RxFuture.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4B167AF221CFFF1E00D37086 /* RxFuture.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4BAE9FD221DFA167003DDF3D /* RxFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B167AF521CFFF1E00D37086 /* RxFuture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4BAE9FD421DFA167003DDF3D /* RxFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B167B0321D003AE00D37086 /* RxFuture.swift */; };
+		4BDCABD923FD4AFE002741E7 /* RxFutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BDCABD823FD4AFE002741E7 /* RxFutureTests.swift */; };
+		4BDCABDB23FD4AFE002741E7 /* RxFuture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B167AF221CFFF1E00D37086 /* RxFuture.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		4B727F7C228296ED00AA7E2B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4B167AE921CFFF1E00D37086 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4B167AF121CFFF1E00D37086;
+			remoteInfo = "RxFuture-iOS";
+		};
+		4BDCABDC23FD4AFE002741E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4B167AE921CFFF1E00D37086 /* Project object */;
 			proxyType = 1;
@@ -59,6 +68,9 @@
 		4B727F72228296E000AA7E2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4B727F74228296E000AA7E2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4BAE9FDC21DFA167003DDF3D /* RxFuture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxFuture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDCABD623FD4AFE002741E7 /* RxFutureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxFutureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BDCABD823FD4AFE002741E7 /* RxFutureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxFutureTests.swift; sourceTree = "<group>"; };
+		4BDCABDA23FD4AFE002741E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +98,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BDCABD323FD4AFE002741E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDCABDB23FD4AFE002741E7 /* RxFuture.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -101,6 +121,7 @@
 			children = (
 				4B167AF421CFFF1E00D37086 /* RxFuture */,
 				4B727F67228296DF00AA7E2B /* RxFutureDemo */,
+				4BDCABD723FD4AFE002741E7 /* RxFutureTests */,
 				4B167AF321CFFF1E00D37086 /* Products */,
 				4B0174D223F30EE800AF5B12 /* Frameworks */,
 			);
@@ -114,6 +135,7 @@
 				4B167AF221CFFF1E00D37086 /* RxFuture.framework */,
 				4BAE9FDC21DFA167003DDF3D /* RxFuture.framework */,
 				4B727F66228296DF00AA7E2B /* RxFutureDemo.app */,
+				4BDCABD623FD4AFE002741E7 /* RxFutureTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,6 +161,15 @@
 				4B727F74228296E000AA7E2B /* Info.plist */,
 			);
 			path = RxFutureDemo;
+			sourceTree = "<group>";
+		};
+		4BDCABD723FD4AFE002741E7 /* RxFutureTests */ = {
+			isa = PBXGroup;
+			children = (
+				4BDCABD823FD4AFE002741E7 /* RxFutureTests.swift */,
+				4BDCABDA23FD4AFE002741E7 /* Info.plist */,
+			);
+			path = RxFutureTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,13 +255,31 @@
 			productReference = 4BAE9FDC21DFA167003DDF3D /* RxFuture.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		4BDCABD523FD4AFE002741E7 /* RxFutureTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4BDCABE023FD4AFE002741E7 /* Build configuration list for PBXNativeTarget "RxFutureTests" */;
+			buildPhases = (
+				4BDCABD223FD4AFE002741E7 /* Sources */,
+				4BDCABD323FD4AFE002741E7 /* Frameworks */,
+				4BDCABD423FD4AFE002741E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4BDCABDD23FD4AFE002741E7 /* PBXTargetDependency */,
+			);
+			name = RxFutureTests;
+			productName = RxFutureTests;
+			productReference = 4BDCABD623FD4AFE002741E7 /* RxFutureTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4B167AE921CFFF1E00D37086 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1020;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = muukii;
 				TargetAttributes = {
@@ -240,6 +289,9 @@
 					};
 					4B727F65228296DF00AA7E2B = {
 						CreatedOnToolsVersion = 10.2;
+					};
+					4BDCABD523FD4AFE002741E7 = {
+						CreatedOnToolsVersion = 11.3;
 					};
 				};
 			};
@@ -262,6 +314,7 @@
 				4B167AF121CFFF1E00D37086 /* RxFuture-iOS */,
 				4BAE9FD021DFA167003DDF3D /* RxFuture-macOS */,
 				4B727F65228296DF00AA7E2B /* RxFutureDemo */,
+				4BDCABD523FD4AFE002741E7 /* RxFutureTests */,
 			);
 		};
 /* End PBXProject section */
@@ -285,6 +338,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4BAE9FD821DFA167003DDF3D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4BDCABD423FD4AFE002741E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -319,6 +379,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4BDCABD223FD4AFE002741E7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BDCABD923FD4AFE002741E7 /* RxFutureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -326,6 +394,11 @@
 			isa = PBXTargetDependency;
 			target = 4B167AF121CFFF1E00D37086 /* RxFuture-iOS */;
 			targetProxy = 4B727F7C228296ED00AA7E2B /* PBXContainerItemProxy */;
+		};
+		4BDCABDD23FD4AFE002741E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4B167AF121CFFF1E00D37086 /* RxFuture-iOS */;
+			targetProxy = 4BDCABDC23FD4AFE002741E7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -641,6 +714,44 @@
 			};
 			name = Release;
 		};
+		4BDCABDE23FD4AFE002741E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RxFutureTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RxFutureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4BDCABDF23FD4AFE002741E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RxFutureTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = app.muukii.RxFutureTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -676,6 +787,15 @@
 			buildConfigurations = (
 				4BAE9FDA21DFA167003DDF3D /* Debug */,
 				4BAE9FDB21DFA167003DDF3D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4BDCABE023FD4AFE002741E7 /* Build configuration list for PBXNativeTarget "RxFutureTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4BDCABDE23FD4AFE002741E7 /* Debug */,
+				4BDCABDF23FD4AFE002741E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
