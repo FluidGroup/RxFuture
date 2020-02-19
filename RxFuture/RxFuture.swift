@@ -22,11 +22,23 @@ public final class RxFuture<E> {
   public typealias Result<E> = SingleEvent<E>
   
   public typealias RxPromise<E> = Single<E>
+  
+  private let _output: BehaviorSubject<E?> = .init(value: nil)
 
   /// Reactive style for receive notification for completion of this task.
   /// It's already shared and replaying.
   /// It will broadcast result, even if this task already completed.
-  public let result: RxPromise<E>
+  public var result: RxPromise<E> {
+    _output
+      .filter {
+        $0 != nil
+    }
+    .map {
+      $0!
+    }
+    .take(1)
+    .asSingle()
+  }
   
   public var isCompleted: Bool {
     get {
@@ -61,6 +73,7 @@ public final class RxFuture<E> {
   init(_ make: () -> RxPromise<E>) {
     
     let promise = make()
+    .debug()
       .asObservable()
       .takeUntil(cancelTrigger)
       .asSingle()
@@ -73,12 +86,7 @@ public final class RxFuture<E> {
     .asObservable()
     .share(replay: 1, scope: .forever)
     .asSingle()
-      
-    // Single will be disposed when observed success or error.
-    _ = promise.subscribe()
-    
-    self.result = promise
-    
+            
     _ = promise
       .do(
         onSuccess: { [weak self] _ in
@@ -86,7 +94,18 @@ public final class RxFuture<E> {
         }, onError: { [weak self] error in
           self?.isCompleted = true
       })
-    
+      .asObservable()
+      .map { Optional($0) }
+      .subscribe(onNext: { (e) in
+        self._output.onNext(e)
+      }, onError: { (error) in
+        self._output.onError(error)
+      })
+              
+  }
+  
+  deinit {
+
   }
  
   /// Cancel task
@@ -164,10 +183,6 @@ extension RxFuture {
         .start()
   }
 
-  @available(*, deprecated, renamed: "flatMap")
-  public func then<U>(_ transform: @escaping (E) throws -> RxFuture<U>) -> RxFuture<U> {
-    return flatMap(transform)
-  }
 }
 
 extension PrimitiveSequence where Trait == SingleTrait {
