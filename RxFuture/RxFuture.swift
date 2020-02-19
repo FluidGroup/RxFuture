@@ -73,7 +73,6 @@ public final class RxFuture<E> {
   init(_ make: () -> RxPromise<E>) {
     
     let promise = make()
-    .debug()
       .asObservable()
       .takeUntil(cancelTrigger)
       .asSingle()
