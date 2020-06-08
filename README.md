@@ -40,3 +40,8 @@ func taskToDoSomething() -> Observable<E>
 
 Basically, Future will run a wrapped task immediately.
 So, I created an object like as Future with RxSwift.
+
+## What's the differences with `Single<E>`?
+
+RxFuture is different with Single. We can say `RxFuture` runs similar with `Combine.Future`.  
+`RxFuture` and `Combine.Future` runs their tasks immediately and they caches result until they are deallocated.
