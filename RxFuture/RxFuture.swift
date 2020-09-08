@@ -17,12 +17,20 @@ public enum RxFutureError : Error {
 
 /// Item for subscribing primitive sequence
 ///
-public final class RxFuture<E> {
-  
+public final class RxFuture<E>: Hashable {
+
   public typealias Result<E> = SingleEvent<E>
-  
+
   public typealias RxPromise<E> = Single<E>
-  
+
+  public static func == (lhs: RxFuture<E>, rhs: RxFuture<E>) -> Bool {
+    lhs === rhs
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    ObjectIdentifier(self).hash(into: &hasher)
+  }
+
   private let _output: BehaviorSubject<E?> = .init(value: nil)
 
   /// Reactive style for receive notification for completion of this task.
@@ -40,7 +48,7 @@ public final class RxFuture<E> {
     .asSingle()
   }
   
-  public var isCompleted: Bool {
+  private(set) public var isCompleted: Bool {
     get {
       lock.lock(); defer { lock.unlock() }
       return _isCompleted
@@ -51,6 +59,18 @@ public final class RxFuture<E> {
     }
   }
 
+  private(set) public var wasCancelled: Bool {
+    get {
+      lock.lock(); defer { lock.unlock() }
+      return _wasCancelled
+    }
+    set {
+      lock.lock(); defer { lock.unlock() }
+      _wasCancelled = newValue
+    }
+  }
+
+  private var _wasCancelled: Bool = false
   private var _isCompleted: Bool = false
   
   private let cancelTrigger = PublishSubject<Void>()
@@ -109,6 +129,7 @@ public final class RxFuture<E> {
  
   /// Cancel task
   public func cancel() {
+    wasCancelled = true
     cancelTrigger.onNext(())
   }
 }
