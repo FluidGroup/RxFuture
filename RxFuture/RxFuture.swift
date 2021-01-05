@@ -94,9 +94,9 @@ public final class RxFuture<E>: Hashable {
     
     let promise = make()
       .asObservable()
-      .takeUntil(cancelTrigger)
+      .take(until: cancelTrigger)
       .asSingle()
-      .catchError { error in
+      .catch { error in
         guard case RxError.noElements = error else {
           throw error
         }
@@ -166,7 +166,7 @@ extension RxFuture {
       switch event {
       case .success(let e):
         success(e)
-      case .error(let error):
+      case .failure(let error):
         failure(error)
       }
       completion()
@@ -212,7 +212,7 @@ extension PrimitiveSequence where Trait == SingleTrait {
   /// - Returns:
   @discardableResult
   public func start(observeScheduler: SchedulerType = MainScheduler.asyncInstance) -> RxFuture<Element> {
-    return RxFuture { observeOn(observeScheduler) }
+    return RxFuture { observe(on: observeScheduler) }
   }
   
 }
