@@ -6,7 +6,7 @@ A temporary solution
 
 A library to provide Future/Promise pattern API that is backed by RxSwift.
 
-## Why do we need this?
+## Why do we need this against using Single<Element>?
 
 Firstly, Future/Promise pattern fits to return a single result of an asynchronous task.
 
