@@ -186,14 +186,16 @@ extension RxFuture {
   
 // MARK: - Transforming
 extension RxFuture {
-  
+
+  @discardableResult
   public func map<U>(_ transform: @escaping (E) throws -> U) -> RxFuture<U> {
     return
       result
         .map(transform)
         .start()
   }
-  
+
+  @discardableResult
   public func flatMap<U>(_ transform: @escaping (E) throws -> RxFuture<U>) -> RxFuture<U> {
     return
       result
