@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "RxFuture"
-  s.version = "5.0.0"
+  s.version = "5.1.0"
   :xa
   s.summary = "A library to provide Future/Promise pattern API that is backed by RxSwift."
 
