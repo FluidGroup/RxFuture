@@ -77,6 +77,40 @@ public final class RxFuture<E>: Hashable {
   
   private let lock = NSLock()
 
+  public static func concat(_ promises: RxFuture<Void>...) -> RxFuture<Void> {
+    let lock = NSLock()
+    var isFailed = false
+    var completionCountDown = promises.count - 1
+    return .create { single in
+      promises.forEach {
+        $0.on {
+          lock.lock()
+          guard isFailed else {
+            lock.unlock()
+            return
+          }
+          completionCountDown -= 1
+          if completionCountDown == 0 {
+            lock.unlock()
+            single(.success(()))
+          } else {
+            lock.unlock()
+          }
+        } failure: { error in
+          lock.lock()
+          guard isFailed == false else {
+            lock.unlock()
+            return
+          }
+          isFailed = true
+          lock.unlock()
+          single(.failure(error))
+        }
+      }
+      return Disposables.create()
+    }
+  }
+
   public static func create(_ promise: @escaping (@escaping (SingleEvent<E>) -> ()) -> Disposable) -> RxFuture<E> {
 
     return .init { Single<E>.create(subscribe: promise) }
